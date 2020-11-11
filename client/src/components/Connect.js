@@ -1,26 +1,21 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-
-axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
-axios.defaults.headers.common["Content-Type"] = "application/json";
-
-const port = 3001;
-const url = `http://localhost:${port}/`;
+import React from "react";
+import { useFetch } from "./../util/useFetch";
 
 function Connect() {
-  const [response, setResponse] = useState();
+  const url = `http://localhost:${3001}/`;
+  const [response, loading, hasError] = useFetch(url);
 
-  const basicRequest = async () => {
-    const { data } = await axios.get(url);
-    setResponse(data);
-    console.log(response);
-  };
-
-  useEffect(() => {
-    basicRequest();
-  });
-
-  return <div>Server response: {response}</div>;
+  return (
+    <div>
+      {loading ? (
+        <div>Loading...</div>
+      ) : hasError ? (
+        <div>Error occurred.</div>
+      ) : (
+        <div> Server response: {response}</div>
+      )}
+    </div>
+  );
 }
 
 export default Connect;
