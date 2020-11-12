@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 
-const RoleSelection = ({ setRole }) => {
+const RoleSelection = ({ setRole, setLoggedIn }) => {
   const roles = ["Finance", "Sales", "HR", "Technology"];
 
   return (
     <div>
-      <RadioSelect options={roles} setSelected={setRole} />
+      <RadioSelect
+        options={roles}
+        setSelected={setRole}
+        setLoggedIn={setLoggedIn}
+      />
     </div>
   );
 };
 
-const RadioSelect = ({ options, setSelected }) => {
+const RadioSelect = ({ options, setSelected, setLoggedIn }) => {
   const initialState = options.reduce((acc, current) => {
     acc[current] = false;
     return acc;
@@ -29,6 +33,7 @@ const RadioSelect = ({ options, setSelected }) => {
   };
 
   const handleSelection = event => {
+    setLoggedIn(true);
     updateSelectionState(event.target.value);
     setSelected(event.target.value);
   };

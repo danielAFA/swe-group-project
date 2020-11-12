@@ -4,7 +4,7 @@ import axios from "axios";
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
-export const useFetch = (url, opts) => {
+const useFetch = (url, opts) => {
   const [response, setResponse] = useState();
   const [loading, setLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -26,3 +26,5 @@ export const useFetch = (url, opts) => {
 
   return [response, loading, hasError];
 };
+
+export default useFetch;
