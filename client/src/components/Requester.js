@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
-import useFetch from "./../util/useFetch";
+import useFetch from "../util/useFetch";
 
-function Connect({ setLinkData }) {
+const mockData = [
+  { display_name: "Google", url: "https://google.com" },
+  { display_name: "Yahoo", url: "https://yahoo.com" },
+];
+
+function Requester({ setLinkData }) {
   const url = `http://localhost:${3001}/`;
   const [response, loading, hasError] = useFetch(url);
 
   useEffect(() => {
     //setLinkData(response);
-    setLinkData([
-      { title: "Google", url: "https://google.com" },
-      { title: "Yahoo", url: "https://yahoo.com" },
-    ]);
+    setLinkData(mockData);
   }, []);
 
   return (
@@ -26,4 +28,4 @@ function Connect({ setLinkData }) {
   );
 }
 
-export default Connect;
+export default Requester;

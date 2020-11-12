@@ -1,60 +1,38 @@
 import React, { useState } from "react";
 
-const RoleSelection = ({ setRole, setLoggedIn }) => {
-  const roles = ["Finance", "Sales", "HR", "Technology"];
-
+const RoleSelection = ({ roles, logIn }) => {
   return (
-    <div>
-      <RadioSelect
-        options={roles}
-        setSelected={setRole}
-        setLoggedIn={setLoggedIn}
-      />
-    </div>
+    <label>
+      Select role: <RadioInput options={roles} action={logIn} />
+    </label>
   );
 };
 
-const RadioSelect = ({ options, setSelected, setLoggedIn }) => {
-  const initialState = options.reduce((acc, current) => {
-    acc[current] = false;
-    return acc;
-  }, {});
+const RadioInput = ({ options, action }) => {
+  const getCheckedOptions = (selectedOption = null) =>
+    options.reduce((acc, cur) => ({ ...acc, cur: cur === selectedOption }), {});
 
-  const [selectionState, setSelectionState] = useState(initialState);
+  const [checkedList, setCheckedList] = useState(getCheckedOptions());
 
-  const updateSelectionState = option => {
-    const prevState = { ...selectionState };
-
-    for (const prop in selectionState) {
-      prevState[prop] = option === prop;
-    }
-
-    setSelectionState(prevState);
-  };
-
-  const handleSelection = event => {
-    setLoggedIn(true);
-    updateSelectionState(event.target.value);
-    setSelected(event.target.value);
+  const handleSelect = ({ target: { value } }) => {
+    action(value);
+    setCheckedList(getCheckedOptions(value));
   };
 
   return (
     <form>
-      <label>
-        Select role:{" "}
-        {options.map((option, i) => (
-          <label key={i}>
-            {option}
-            <input
-              type="radio"
-              value={option}
-              name="option-type"
-              checked={selectionState[option]}
-              onChange={handleSelection}
-            ></input>
-          </label>
-        ))}
-      </label>
+      {options.map((option, i) => (
+        <label key={i}>
+          {option}
+          <input
+            type="radio"
+            value={option}
+            name="option-type"
+            checked={checkedList[option]}
+            onChange={handleSelect}
+          ></input>
+        </label>
+      ))}
     </form>
   );
 };

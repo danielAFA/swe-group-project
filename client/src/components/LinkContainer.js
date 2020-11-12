@@ -5,7 +5,7 @@ const LinkContainer = ({ role, linkData }) => (
     <label>{role} links:</label>
     {linkData.map((link, index) => (
       <div key={index}>
-        <a href={link.url}>{link.title}</a>
+        <a href={link.url}>{link.display_name}</a>
       </div>
     ))}
   </div>
