@@ -9,8 +9,14 @@ const RoleSelection = ({ roles, logIn }) => {
 };
 
 const RadioInput = ({ options, action }) => {
-  const getCheckedOptions = (selectedOption = null) =>
-    options.reduce((acc, cur) => ({ ...acc, cur: cur === selectedOption }), {});
+  const getCheckedOptions = (checked = null) =>
+    options.reduce(
+      (accumulator, current) => ({
+        ...accumulator,
+        current: current === checked,
+      }),
+      {}
+    );
 
   const [checkedList, setCheckedList] = useState(getCheckedOptions());
 

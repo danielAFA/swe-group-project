@@ -1,9 +1,9 @@
 import React from "react";
 
-const LinkContainer = ({ role, linkData }) => (
+const LinkContainer = ({ roleLinks }) => (
   <div>
-    <label>{role} links:</label>
-    {linkData.map((link, index) => (
+    <label>{roleLinks.title} links:</label>
+    {roleLinks.links.map((link, index) => (
       <div key={index}>
         <a href={link.url}>{link.display_name}</a>
       </div>

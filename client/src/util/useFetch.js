@@ -4,7 +4,7 @@ import axios from "axios";
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
-const useFetch = (url, opts) => {
+const useFetch = (url, body) => {
   const [response, setResponse] = useState();
   const [loading, setLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -12,7 +12,7 @@ const useFetch = (url, opts) => {
   const basicRequest = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get(url);
+      const { data } = await (body ? axios.post(url, body) : axios.get(url));
       setResponse(data);
     } catch (error) {
       setHasError(true);

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Requester from "./components/Requester";
 import RoleSelection from "./components/RoleSelection";
-import LinkContainer from "./components/LinkContainer";
+import RoleContainer from "./components/RoleContainer";
 import Logout from "./components/Logout";
 import { ROLES } from "./constants";
 import "./App.css";
@@ -12,7 +12,7 @@ function App() {
   const [linkData, setLinkData] = useState();
 
   const Status = () => (
-    <div>User {role ? " role: " + role : "has not logged in"}.</div>
+    <div>{role ? role + " user " : " User not "}logged in.</div>
   );
 
   const logOut = () => {
@@ -29,16 +29,16 @@ function App() {
   return (
     <div>
       <h1>Admin Portal</h1>
-      <Status />
       {isLoggedIn ? (
         <div>
           <Logout logOut={logOut} />
           <Requester role={role} setLinkData={setLinkData} />
-          {linkData && <LinkContainer role={role} linkData={linkData} />}
         </div>
       ) : (
         <RoleSelection roles={ROLES} logIn={logIn} />
       )}
+      <Status />
+      {linkData && <RoleContainer linkData={linkData} />}
     </div>
   );
 }
