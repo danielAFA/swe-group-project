@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
@@ -9,7 +9,7 @@ const useFetch = (url, body) => {
   const [loading, setLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  const basicRequest = async () => {
+  const basicRequest = useCallback(async () => {
     setLoading(true);
     try {
       const { data } = await (body ? axios.post(url, body) : axios.get(url));
@@ -18,11 +18,11 @@ const useFetch = (url, body) => {
       setHasError(true);
     }
     setLoading(false);
-  };
+  }, [body, url]);
 
   useEffect(() => {
     basicRequest();
-  }, [url]);
+  }, []);
 
   return [response, loading, hasError];
 };

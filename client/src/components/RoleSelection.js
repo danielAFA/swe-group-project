@@ -27,7 +27,7 @@ const RadioInput = ({ options, action }) => {
   };
 
   return (
-    <form>
+    <div>
       {options.map((option, i) => (
         <label key={i}>
           {option}
@@ -41,7 +41,7 @@ const RadioInput = ({ options, action }) => {
         </label>
       ))}
       <button onClick={() => action(current)}>select</button>
-    </form>
+    </div>
   );
 };
 
