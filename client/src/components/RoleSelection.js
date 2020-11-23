@@ -19,9 +19,10 @@ const RadioInput = ({ options, action }) => {
     );
 
   const [checkedList, setCheckedList] = useState(getCheckedOptions());
+  const [current, setCurrent] = useState();
 
   const handleSelect = ({ target: { value } }) => {
-    action(value);
+    setCurrent(value);
     setCheckedList(getCheckedOptions(value));
   };
 
@@ -39,6 +40,7 @@ const RadioInput = ({ options, action }) => {
           ></input>
         </label>
       ))}
+      <button onClick={() => action(current)}>select</button>
     </form>
   );
 };

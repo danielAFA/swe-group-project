@@ -4,7 +4,10 @@ import RoleSelection from "./components/RoleSelection";
 import RoleContainer from "./components/RoleContainer";
 import Logout from "./components/Logout";
 import { ROLES } from "./constants";
+import styled from "@emotion/styled";
 import "./App.css";
+
+const Container = styled.div``;
 
 function App() {
   const [role, setRole] = useState();
@@ -27,8 +30,9 @@ function App() {
   };
 
   return (
-    <div>
+    <Container>
       <h1>Admin Portal</h1>
+      <Status />
       {isLoggedIn ? (
         <div>
           <Logout logOut={logOut} />
@@ -37,9 +41,8 @@ function App() {
       ) : (
         <RoleSelection roles={ROLES} logIn={logIn} />
       )}
-      <Status />
       {linkData && <RoleContainer linkData={linkData} />}
-    </div>
+    </Container>
   );
 }
 export default App;

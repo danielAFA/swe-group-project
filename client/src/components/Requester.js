@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import useFetch from "../util/useFetch";
 import { DEFAULT_ROLES } from "../constants";
 
-const mockData = [
+/* const mockData = [
   {
     title: "Support",
     links: [
@@ -49,12 +49,13 @@ const mockData = [
       { display_name: "Release Management", url: "www.release.com" },
     ],
   },
-];
+]; */
 
-const getLinks = role => {
-  return mockData.filter(
-    element => DEFAULT_ROLES.includes(element.title) || element.title === role
-  );
+const getLinks = (role, links) => {
+  if (links)
+    return links.filter(
+      element => DEFAULT_ROLES.includes(element.title) || element.title === role
+    );
 };
 
 const Requester = ({ setLinkData, role }) => {
@@ -65,19 +66,14 @@ const Requester = ({ setLinkData, role }) => {
   const [response, loading, hasError] = useFetch(url, body);
 
   useEffect(() => {
-    //setLinkData(response);
-    setLinkData(getLinks(role));
-  }, []);
+    console.log(response);
+    setLinkData(getLinks(role, response));
+    //setLinkData(getLinks(role));
+  }, [setLinkData, role, response]);
 
   return (
     <div>
-      {loading ? (
-        <div>Loading...</div>
-      ) : hasError ? (
-        <div>Error occurred.</div>
-      ) : (
-        <div> Server response: {JSON.stringify(response)}</div>
-      )}
+      {loading ? <div>Loading...</div> : hasError && <div>Error occurred.</div>}
     </div>
   );
 };
