@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-const uri =
-  "mongodb+srv://swe_user:mwwQYNReDQPi0bgw@cluster0.4dg8e.mongodb.net/swe?retryWrites=true&w=majority";
+const { URI } = require("./private");
 
 const connect = () => {
-  mongoose.connect(uri, {
+  mongoose.connect(URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
