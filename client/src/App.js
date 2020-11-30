@@ -5,9 +5,13 @@ import RoleContainer from "./components/RoleContainer";
 import Logout from "./components/Logout";
 import { ROLES } from "./constants";
 import styled from "@emotion/styled";
-import "./App.css";
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`;
 
 function App() {
   const [role, setRole] = useState();
@@ -15,7 +19,7 @@ function App() {
   const [linkData, setLinkData] = useState();
 
   const Status = () => (
-    <div>{role ? role + " user " : " User not "}logged in.</div>
+    <div>{role ? role + " user " : " User not logged in"}</div>
   );
 
   const logOut = () => {
@@ -31,13 +35,11 @@ function App() {
 
   return (
     <Container>
-      <h1>Admin Portal</h1>
+      <h3>Admin Portal</h3>
       <Status />
+      {isLoggedIn && <Requester role={role} setLinkData={setLinkData} />}
       {isLoggedIn ? (
-        <div>
-          <Logout logOut={logOut} />
-          <Requester role={role} setLinkData={setLinkData} />
-        </div>
+        <Logout logOut={logOut} />
       ) : (
         <RoleSelection roles={ROLES} logIn={logIn} />
       )}

@@ -18,12 +18,15 @@ const Requester = ({ setLinkData, role }) => {
 
   useEffect(() => {
     setLinkData(getLinks(role, response));
-    //setLinkData(getLinks(role));
   }, [setLinkData, role, response]);
 
   return (
     <div>
-      {loading ? <div>Loading...</div> : hasError && <div>Error occurred.</div>}
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        hasError && <div>Could not connect to the server</div>
+      )}
     </div>
   );
 };

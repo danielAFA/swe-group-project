@@ -1,12 +1,23 @@
 import React, { useState } from "react";
+import styled from "@emotion/styled";
 
-const RoleSelection = ({ roles, logIn }) => {
-  return (
-    <label>
-      Select role: <RadioInput options={roles} action={logIn} />
-    </label>
-  );
-};
+const OptionContainer = styled.div`
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+`;
+const Option = styled.span``;
+
+const SelectButton = styled.button`
+  text-align: center;
+`;
+
+const RoleSelection = ({ roles, logIn }) => (
+  <div>
+    <label>User role: </label>
+    <RadioInput options={roles} action={logIn} />
+  </div>
+);
 
 const RadioInput = ({ options, action }) => {
   const getCheckedOptions = (checked = null) =>
@@ -27,21 +38,29 @@ const RadioInput = ({ options, action }) => {
   };
 
   return (
-    <div>
-      {options.map((option, i) => (
-        <label key={i}>
-          {option}
-          <input
-            type="radio"
-            value={option}
-            name="option-type"
-            checked={checkedList[option]}
-            onChange={handleSelect}
-          ></input>
-        </label>
-      ))}
-      <button onClick={() => action(current)}>select</button>
-    </div>
+    <>
+      <OptionContainer>
+        {options.map((option, i) => (
+          <Option key={i}>
+            <input
+              type="radio"
+              value={option}
+              name="option-type"
+              checked={checkedList[option]}
+              onChange={handleSelect}
+            ></input>
+            <label>{option}</label>
+          </Option>
+        ))}
+      </OptionContainer>
+      <SelectButton
+        onClick={() => {
+          if (current) action(current);
+        }}
+      >
+        log in
+      </SelectButton>
+    </>
   );
 };
 

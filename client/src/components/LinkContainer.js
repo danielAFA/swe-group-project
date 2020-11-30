@@ -1,14 +1,26 @@
 import React from "react";
+import styled from "@emotion/styled";
 
-const LinkContainer = ({ roleLinks }) => (
-  <div>
-    <label>{roleLinks.title} links:</label>
-    {roleLinks.links.map((link, index) => (
-      <div key={index}>
-        <a href={link.url}>{link.display_name}</a>
-      </div>
-    ))}
-  </div>
-);
+const LinkContainer = ({ roleLinks }) => {
+  const Link = styled.a`
+    text-decoration: none;
+    &.visited {
+      color: blue;
+    }
+  `;
+
+  return (
+    <div>
+      <div>{roleLinks.title} links:</div>
+      <ul>
+        {roleLinks.links.map((link, index) => (
+          <li key={index}>
+            <Link href={link.url}>{link.display_name}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default LinkContainer;
